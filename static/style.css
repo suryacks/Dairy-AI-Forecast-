@@ -1,0 +1,219 @@
+/* NEW: Import the 'Poppins' font from Google Fonts at the top of the file */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap');
+
+/* --- Overall Layout & Body --- */
+body {
+    /* CHANGED: Switched to Poppins as the main font */
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: linear-gradient(135deg, #302b63 0%, #0f0c29 50%, #24243e 100%);
+    color: #ecf0f1;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #0f0c29, #24243e, #302b63);
+    opacity: 1;
+}
+
+/* --- Title --- */
+.main-title {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.main-title h1 {
+    margin: 0;
+    /* CHANGED: Using the new Poppins font */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 2.8em;
+    background: linear-gradient(90deg, #a0dfff, #ecf0f1, #a0dfff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+    /* CHANGED: Reduced letter spacing for a tighter look */
+    letter-spacing: -1px;
+}
+
+/* --- Controls & Report Panels (Frosted Glass Effect) --- */
+.controls-container, .report-panel {
+    position: absolute;
+    z-index: 1000;
+    background: rgba(44, 62, 80, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Controls Panel --- */
+.controls-container {
+    top: 20px;
+    left: 20px;
+    width: 320px;
+    padding: 20px;
+}
+
+.controls-container h3 {
+    margin-top: 0;
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 10px;
+    font-weight: 600;
+}
+
+.controls-container p {
+    color: #bdc3c7;
+    font-size: 0.9em;
+}
+
+.date-display {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 500;
+    margin: 20px 0;
+}
+
+/* --- Custom Slider --- */
+input[type=range] {
+    width: 100%;
+    margin: 10px 0;
+    background-color: transparent;
+    -webkit-appearance: none;
+}
+input[type=range]:focus {
+    outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    background: #5e72e4; /* Purple accent */
+    height: 6px;
+    border-radius: 3px;
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    background: #ecf0f1;
+    border-radius: 50%;
+    border: 2px solid #5e72e4; /* Purple accent */
+    margin-top: -7px;
+    cursor: pointer;
+}
+
+/* --- Custom Radio Buttons (Milk Type) --- */
+.milk-type-selector {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+    margin-top: 10px;
+}
+.milk-type-selector div {
+    display: flex;
+    align-items: center;
+}
+.milk-type-selector input[type="radio"] {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+}
+.milk-type-selector label {
+    display: inline-block;
+    background-color: rgba(0,0,0,0.2);
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: 1px solid #7f8c8d;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-weight: 400; /* Regular weight for unselected */
+}
+.milk-type-selector input[type="radio"]:checked + label {
+    background-color: #5e72e4; /* Purple accent */
+    border-color: #ecf0f1;
+    font-weight: 600; /* Bolder for selected */
+}
+
+/* --- Custom Button --- */
+#generate-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(45deg, #5e72e4, #825ee4); /* Purple accent */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    margin-top: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+#generate-button:disabled {
+    background: #7f8c8d;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+#generate-button:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* --- Report Panel --- */
+.report-panel {
+    top: 0;
+    right: -30%;
+    width: 28%;
+    height: 100%;
+    transition: right 0.5s ease-in-out;
+}
+.report-panel.visible {
+    right: 0;
+}
+#report-content {
+    padding: 25px;
+}
+#report-title {
+    padding: 20px;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    font-weight: 600;
+}
+.report-item h4 {
+    margin: 0 0 8px 0;
+    color: #95a5a6;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    letter-spacing: 1px;
+}
+.report-item p {
+    margin: 0 0 25px 0;
+    font-size: 1.2em;
+    color: #fff;
+    font-weight: 600;
+}
+#report-reasoning {
+    font-size: 1em;
+    line-height: 1.6;
+    font-weight: 400;
+    font-style: normal;
+}
+.hidden {
+    display: none;
+}
