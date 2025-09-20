@@ -110,10 +110,11 @@ pip install -r requirements.txt
 - Create a `.env` file in the root directory.
 - Add your API key:
 
-  ```
-  GEMINI_API_KEY="YOUR_API_KEY_HERE"
-  ```
+```
 
+echo 'GEMINI_API_KEY="YOUR_API_KEY_HERE"' > .env
+
+```
 5. **Data and training scripts**
 
 - Pre-trained models are ready for immediate use.
