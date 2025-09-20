@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-# Dairy-AI-Forecast-
-An interactive web app using XGBoost &amp; the Gemini API to forecast weekly milk volume and fat percentage for US states. Users select a state, milk type (Organic, Grass-Fed), and forecast period to receive AI-generated predictions and analysis based on historical and weather data.
-=======
 Dairy AI Forecast 🐄🥛
+An interactive web app using XGBoost & the Gemini API to forecast weekly milk volume and fat percentage for US states. Users select a state, milk type (Organic, Grass-Fed), and forecast period to receive AI-generated predictions and analysis based on historical and weather data.
+
 Introduction
 Dairy AI Forecast is a web application that uses machine learning and generative AI to predict weekly milk volume and milk fat percentage for various states across the U.S. The application features an interactive map where users can select a state, a type of milk production (e.g., Organic, Grass-Fed), and a forecast period to receive a detailed prediction.
 
@@ -41,6 +39,7 @@ Project Structure
 |-- app.py                      # Main Flask web server
 |-- requirements.txt            # Python dependencies
 |-- README.md                   # You are here!
+|-- .gitignore                  # Tells Git which files to ignore (like .env)
 |-- .env                        # For storing the API key (must be created locally)
 |
 |-- /models                     # Stores models, training scripts, and data
@@ -67,11 +66,13 @@ cd Dairy-AI-Forecast
 2. Create and Activate a Virtual Environment
 It's highly recommended to use a virtual environment to manage project dependencies.
 
-# For macOS/Linux
+For macOS/Linux:
+
 python3 -m venv .venv
 source .venv/bin/activate
 
-# For Windows
+For Windows:
+
 python -m venv .venv
 .\.venv\Scripts\activate
 
@@ -98,5 +99,4 @@ Start the web application by running the main app.py script from the root direct
 python app.py
 
 2. Use the Application
-Open your web browser and navigate to http://12.0.0.1:5000 to use the application.
->>>>>>> ce6aa9f (First Version)
+Open your web browser and navigate to http://127.0.0.1:5000 to use the application.
