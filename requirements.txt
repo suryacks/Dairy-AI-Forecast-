@@ -1,0 +1,11 @@
+pandas
+numpy
+openpyxl
+scikit-learn
+xgboost
+joblib
+Flask
+meteostat
+google-generativeai
+matplotlib
+python-dotenv
