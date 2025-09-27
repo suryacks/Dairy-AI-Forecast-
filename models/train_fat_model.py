@@ -7,10 +7,8 @@ import xgboost as xgb
 import numpy as np
 import joblib
 
-# --- Configuration ---
 EXCEL_FILE_PATH = 'models/Fat_Percentage.xlsx' 
 
-# --- Part 1: Load and Reshape Data from Final 'Wide' Format ---
 
 def load_and_reshape_data(file_path):
     """
@@ -63,11 +61,8 @@ def load_and_reshape_data(file_path):
     print("Data successfully reshaped.")
     return df_long
 
-# --- Part 2: Fetching Weather Data ---
 def get_weekly_weather(df):
-    """
-    Fetches historical weather data including humidity and calculates THI.
-    """
+   
     print("Step 2: Starting to fetch weather data... this may take a few minutes.")
     weather_cache = {}
     weather_data_rows = []
@@ -128,7 +123,6 @@ def get_weekly_weather(df):
     print("Weather data fetching complete.")
     return pd.DataFrame(weather_data_rows, index=df.index)
 
-# --- Part 3: Main Model Training Workflow ---
 
 df = load_and_reshape_data(EXCEL_FILE_PATH)
 
@@ -190,9 +184,7 @@ if df is not None and not df.empty:
         r2 = r2_score(y_test, y_pred)
 
         print("\n--- Model Evaluation Results ---")
-        # CHANGED: Displaying MAE with 5 decimal places for more precision
         print(f"Mean Absolute Error (MAE): {mae:.5f}")
-        # CHANGED: Updated the explanation as well
         print(f"  (This means the model's prediction was off by {mae:.5f} percentage points on average)")
         print(f"R-squared (R²): {r2:.2f}")
         print("--------------------------------\n")

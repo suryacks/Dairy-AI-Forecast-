@@ -8,11 +8,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import joblib
 
-# --- Configuration ---
+
 MILK_VOLUME_FILE = 'models/milk_data.xlsx'
 FAT_PERCENTAGE_FILE = 'models/Fat_Percentage.xlsx'
 
-# --- Part 1: Data Loading and Merging ---
 
 def load_and_merge_data(volume_path, fat_path):
     """
@@ -30,7 +29,7 @@ def load_and_merge_data(volume_path, fat_path):
         'WV': 'West Virginia'
     }
 
-    # --- Reshape Function (nested for clarity) ---
+    
     def reshape_file(file_path, value_name, include_milk_type):
         try:
             df_wide = pd.read_excel(file_path, header=0)
@@ -38,7 +37,7 @@ def load_and_merge_data(volume_path, fat_path):
             print(f"Error: The file '{file_path}' was not found.")
             return None
 
-        # UPDATED: Conditionally include Milk Type
+        
         if include_milk_type:
             id_vars = ['State', 'Milk Type']
             id_columns = df_wide.iloc[:, [0, 1]]
@@ -48,7 +47,7 @@ def load_and_merge_data(volume_path, fat_path):
             id_vars = ['State']
             id_columns = df_wide.iloc[:, [0]]
             id_columns.columns = id_vars
-            # We still need to ignore column B
+            
             data_columns = df_wide.iloc[:, 2:]
 
         date_headers = []
@@ -70,16 +69,14 @@ def load_and_merge_data(volume_path, fat_path):
         df_long.dropna(subset=[value_name, 'State'], inplace=True)
         return df_long
 
-    # UPDATED: Load volume data including the milk type
     df_volume = reshape_file(volume_path, 'Milk Volume', include_milk_type=True)
-    # Load fat data without the milk type (as it will be merged)
+
     df_fat = reshape_file(fat_path, 'Milk Fat Percentage', include_milk_type=False)
 
     if df_volume is None or df_fat is None:
         return None
         
     print("Merging the two datasets...")
-    # Merge on State and Date. Milk Type will be carried over from the volume dataframe.
     df_merged = pd.merge(df_volume, df_fat, on=['State', 'Date'], how='inner')
 
     df_merged['Date'] = pd.to_datetime(df_merged['Date'])
@@ -88,9 +85,8 @@ def load_and_merge_data(volume_path, fat_path):
     print("Data successfully reshaped and merged.")
     return df_merged
 
-# --- Part 2: Fetching Weather Data ---
+
 def get_weekly_weather(df):
-    # This function remains the same
     print("Step 2: Starting to fetch weather data... this may take a few minutes.")
     weather_cache = {}
     weather_data_rows = []
@@ -141,7 +137,7 @@ def get_weekly_weather(df):
     print("Weather data fetching complete.")
     return pd.DataFrame(weather_data_rows, index=df.index)
 
-# --- Part 3: Main Model Training Workflow ---
+
 df = load_and_merge_data(MILK_VOLUME_FILE, FAT_PERCENTAGE_FILE)
 if df is not None and not df.empty:
     weather_df = get_weekly_weather(df)
@@ -205,14 +201,6 @@ if df is not None and not df.empty:
         print(f"R-squared (R²): {r2:.2f}")
         print("--------------------------------\n")
         
-       #print("Step 7: Displaying Feature Importances...")
-       #feature_importances = pd.Series(best_model.feature_importances_, index=X.columns)
-        #feature_importances.nlargest(20).sort_values().plot(kind='barh', figsize=(10, 8))
-        #plt.title('Top 20 Most Important Features')
-        #plt.xlabel('Importance')
-        #plt.tight_layout()
-        #plt.savefig('feature_importance.png')
-        #print("Feature importance plot saved to feature_importance.png")
         
         print("--- Saving Model ---")
         joblib.dump(best_model, 'models/milk_production_model.joblib')
